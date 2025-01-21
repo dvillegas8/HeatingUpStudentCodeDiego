@@ -16,6 +16,24 @@ public class WeatherPatterns {
      */
     public static int longestWarmingTrend(int[] temperatures) {
         // TODO: Write your code here!
+        boolean[][] adjacencyMatrix = new boolean[temperatures.length][temperatures.length];
+        // Creates an adjacency matrix where
+        for(int i = 0; i < temperatures.length; i++){
+            for(int j = i + 1; j < temperatures.length; j++){
+                if(temperatures[i] < temperatures[j]){
+                    adjacencyMatrix[i][j] = true;
+                }
+            }
+        }
+        int[] paths = new int[temperatures.length];
+        int length = 0;
+        for(int i = 0; i < temperatures.length; i++){
+            length = longestPathTo(temperatures, adjacencyMatrix, temperatures[i], i);
+            paths[i] = length;
+
+        }
+
+        /*
         // Keep track of the lengths of the paths of each number
         int[] paths = new int[temperatures.length];
         int biggestPath = 0;
@@ -37,5 +55,17 @@ public class WeatherPatterns {
             }
         }
         return biggestPath;
+        */
+        return 1;
+    }
+    public static int longestPathTo(int[] temps, boolean[][] adjacencyMatrix, int tempTo, int index){
+        int len = 0;
+        // For each vertex leading to the current vertex temp
+        for(int i = 0; i < adjacencyMatrix[index].length; i++){
+            if(adjacencyMatrix[i][index]){
+                len = longestPathTo(temps, adjacencyMatrix, temps[i], i);
+            }
+        }
+        return len + 1;
     }
 }
