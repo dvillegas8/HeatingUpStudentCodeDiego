@@ -3,7 +3,7 @@
  * each day’s temperature is higher than on the previous day in that sequence.
  *
  * @author Zach Blick
- * @author YOUR NAME HERE
+ * @author Diego Villegas
  */
 
 public class WeatherPatterns {
