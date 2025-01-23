@@ -27,13 +27,17 @@ public class WeatherPatterns {
         }
         int[] paths = new int[temperatures.length];
         int length = 0;
+        int max = 0;
         for(int i = 0; i < temperatures.length; i++){
-            length = longestPathTo(temperatures, adjacencyMatrix, temperatures[i], i);
+            length = longestPathTo(paths, adjacencyMatrix, i);
             paths[i] = length;
+            if(max < length){
+                max = length;
+            }
 
         }
-
         /*
+        // FIRST SOLUTION THAT IS MORE EFFICIENT
         // Keep track of the lengths of the paths of each number
         int[] paths = new int[temperatures.length];
         int biggestPath = 0;
@@ -56,14 +60,19 @@ public class WeatherPatterns {
         }
         return biggestPath;
         */
-        return 1;
+        return max;
     }
-    public static int longestPathTo(int[] temps, boolean[][] adjacencyMatrix, int tempTo, int index){
+    public static int longestPathTo(int[] paths, boolean[][] adjacencyMatrix, int index){
+        // Check to see if we have been here before
+        if(paths[index] != 0){
+            return paths[index];
+        }
         int len = 0;
         // For each vertex leading to the current vertex temp
         for(int i = 0; i < adjacencyMatrix[index].length; i++){
+            // Check if it is an edge
             if(adjacencyMatrix[i][index]){
-                len = longestPathTo(temps, adjacencyMatrix, temps[i], i);
+                len = Math.max(len, longestPathTo(paths, adjacencyMatrix, i));
             }
         }
         return len + 1;
