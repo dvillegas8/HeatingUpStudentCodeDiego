@@ -28,9 +28,11 @@ public class WeatherPatterns {
         int[] paths = new int[temperatures.length];
         int length = 0;
         int max = 0;
+        // Go through each temperature
         for(int i = 0; i < temperatures.length; i++){
             length = longestPathTo(paths, adjacencyMatrix, i);
             paths[i] = length;
+            // Keeps track of the longest path
             if(max < length){
                 max = length;
             }
@@ -68,7 +70,7 @@ public class WeatherPatterns {
             return paths[index];
         }
         int len = 0;
-        // For each vertex leading to the current vertex temp
+        // For each vertex leading to the current vertex temperature
         for(int i = 0; i < adjacencyMatrix[index].length; i++){
             // Check if it is an edge
             if(adjacencyMatrix[i][index]){
